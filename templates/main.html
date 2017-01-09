@@ -1,0 +1,52 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	<h1 class="page-header">연관키워드 리스트</h1>
+	<h2 class="sub-header-right">
+		<button class="btn btn-default" ng-click="fnShowAddKeyword()" >키워드추가</button>
+		<button class="btn btn-success">전체수집</button>
+	</h2>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>키워드명</th>
+					<th>연관키워드갯수</th>
+					<th>수집상태</th>
+					<th>수집자명</th>
+					<th>최초수집일자</th>
+					<th>최종수집일자</th>
+					<th></th>
+				</tr>
+			</thead> 
+			<tbody>
+				<tr ng-repeat="list in keywordList">
+					<td>{{keywordList.length - $index}}</td>
+					<td>{{list.searchName}}</td>
+					<td>{{list.searchCnt}}</td>
+					<td><span ng-if="list.searchState == 'N'" style="color:red;">{{stateType[list.searchState]}}</span><span ng-if="list.searchState == 'Y'" style="color:blue;">{{stateType[list.searchState]}}</span></td>
+					<td>{{list.userNm}}</td>
+					<td>{{list.firstDate}}</td>
+					<td>{{list.lastDate}}</td>
+					<td>
+						<button class="btn btn-primary" ng-click="fnGetKeyword(list)">수집</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+   
+<modal title="키워드추가" visible="showAddKeywordModal">
+<table class="formTable" style="width: 100%;">
+	<tr>
+		<th>추가키워드</th>
+		<td><input type="text" ng-model="txt.addKeyword" size="30" maxlength="30" class="form-control" /></td>
+	</tr>
+</table>
+<hr />
+<div style="text-align: center;">
+	<button type="button" class="btn btn-primary" ng-click="fnAddKeyword()">추가</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+</div>
+</modal>
+

@@ -1,0 +1,50 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	<h1 class="page-header">키워드 관리</h1>
+	<div style="padding-bottom:10px;" class="input-group">
+		<input type="text" ng-model="txt.regKeyword" size="30" maxlength="30" class="form-control" ng-keypress="fnEnterKey($event)" />
+		<span class="input-group-btn"><button class="btn btn-success" ng-click="fnRegKeyword()" >키워드등록</button></span>
+	</div>
+
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th><input type="checkbox" ng-model="allCheckFlag" /></th>
+					<th>No</th>
+					<th>키워드명</th>
+					<th>등록일</th>
+					<th></th>
+				</tr>
+			</thead> 
+			<tbody>
+				<tr ng-repeat="list in keywordEditList">
+					<td><input type="checkbox" ng-model="list.seq" ng-checked="allCheckFlag" /></td>
+					<td>{{list.kOrd}}</td>
+					<td>{{list.kName}}</td>
+					<td>{{list.regDt}}</td>
+					<td>
+						<button class="btn btn-info btn-md" ng-click="fnMoveKeyWord(list, 'U')" ng-disabled="list.kOrd == 1">▲</button>
+						<button class="btn btn-info btn-md" ng-click="fnMoveKeyWord(list, 'D')" ng-disabled="list.kOrd == keywordEditList.length">▼</button>
+						<button class="btn btn-danger btn-md" ng-click="fnDelKeyword(list)">삭제</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+   
+<modal title="키워드등록" visible="showRegKeywordModal">
+<table class="formTable" style="width: 100%;">
+	<tr>
+		<th>등록키워드명</th>
+		<td><input type="text" ng-model="txt.regKeyword" size="30" maxlength="30" class="form-control" /></td>
+	</tr>
+</table>
+<hr />
+<div style="text-align: center;">
+	<button type="button" class="btn btn-primary" ng-click="fnRegKeyword()">등록</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+</div>
+</modal>
+

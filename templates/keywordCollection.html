@@ -1,0 +1,75 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	<h1 class="page-header">키워드수집</h1>
+	<div>
+		<nav class="navbar navbar-default">
+  			<form class="navbar-form navbar-left">
+			  <div class="form-group">
+			    <select class="form-control" ng-model="searchForm.year">
+			    	<option value="{{y}}" ng-repeat="y in yearList">{{y}}년</option>
+			    </select>
+			    <select class="form-control" ng-model="searchForm.month">
+			    	<option value="{{m}}" ng-repeat="m in monthList">{{m}}월</option>
+			    </select>
+			    <select class="form-control" ng-model="searchForm.status">
+			    	<option value="">수집상태</option>
+			    	<option value="Y">수집</option>
+			    	<option value="N">미수집</option>
+			    </select>
+			    
+			  </div>
+			  <button type="submit" class="btn btn-primary" ng-click="fnGetList()">검색</button>
+			  <button type="submit" class="btn btn-success" ng-click="fnKeywordCopy()">키워드불러오기</button>
+			</form>
+		</nav>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>수집년도</th>
+					<th>수집월</th>
+					<th>키워드명</th>
+					<th>연관키워드갯수</th>
+					<th>수집상태</th>
+					<th>수집자명</th>
+					<th>수집일</th>
+					<th>등록일</th>
+					<th></th>
+				</tr>
+			</thead> 
+			<tbody>
+				<tr ng-repeat="list in keywordList">
+					<td>{{keywordList.length - $index}}</td>
+					<td>{{list.searchYear}}</td>
+					<td>{{list.searchMonth}}</td>
+					<td><a href="#/kwdView/{{list.mSeq}}">{{list.searchName}}</a></td>
+					<td>{{list.searchCnt}}</td>
+					<td><span ng-if="list.searchState == 'N'" style="color:red;">{{stateType[list.searchState]}}</span><span ng-if="list.searchState == 'Y'" style="color:blue;">{{stateType[list.searchState]}}</span></td>
+					<td>{{list.userNm}}</td>
+					<td>{{list.firstDate}}</td>
+					<td>{{list.lastDate}}</td>
+					<td>
+						<button class="btn btn-primary" ng-click="fnGetKeyword(list)">수집</button>
+					</td>
+				</tr>
+				<tr ng-if="keywordList.length == 0"><td colspan="10">등록된 키워드가 없습니다.</td></tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+   
+<modal title="키워드추가" visible="showAddKeywordModal">
+<table class="formTable" style="width: 100%;">
+	<tr>
+		<th>추가키워드</th>
+		<td><input type="text" ng-model="txt.addKeyword" size="30" maxlength="30" class="form-control" /></td>
+	</tr>
+</table>
+<hr />
+<div style="text-align: center;">
+	<button type="button" class="btn btn-primary" ng-click="fnAddKeyword()">추가</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+</div>
+</modal>
+
